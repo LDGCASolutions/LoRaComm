@@ -4,16 +4,14 @@
 // Require: API key, Node ID
 
 include "../inc/postgresql.inc.php";
+include "../inc/apiKey.inc.php";
 
-$apiKey = "abcdefgHijkLMNOP";
-
-if ($_GET["apiKey"] != $apiKey) {
-  echo "-1";
+if (!apiKeyPass($_GET["apiKey"])) {
   return;
 }
 
 if (!preg_match("/[A-Z0-9]{4,10}/", $_GET["nodeID"])) {
-  echo "0";
+  echo "-1";
   return;
 }
 
@@ -25,7 +23,7 @@ if (pg_num_rows($query)==0){
   $query = "INSERT INTO \"ChallengeLog\" (recipient,challenge) VALUES ('".$_GET["nodeID"]."','".$challenge."')";
   $query = pg_query($db_connection, $query);
   if (!$query){
-    echo "INSERT: 0";
+    echo "0"; // Node doesn't exist in Node table.
     return;
   } else {
     echo $challenge;
@@ -35,7 +33,7 @@ if (pg_num_rows($query)==0){
   $query = "UPDATE \"ChallengeLog\" set challenge='".$challenge."' WHERE recipient='".$_GET["nodeID"]."'";;
   $query = pg_query($db_connection, $query);
   if (!$query){
-    echo "UPDATE: 0";
+    echo "0";
     return;
   } else {
     echo $challenge;

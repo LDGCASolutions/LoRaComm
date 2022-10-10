@@ -3,16 +3,14 @@
 // Require: API key, Node ID
 
 include "../inc/postgresql.inc.php";
+include "../inc/apiKey.inc.php";
 
-$apiKey = "abcdefgHijkLMNOP";
-
-if ($_GET["apiKey"] != $apiKey) {
-  echo "-1";
+if (!apiKeyPass($_GET["apiKey"])) {
   return;
 }
 
 if (!preg_match("/[A-Z0-9]{4,10}/", $_GET["nodeID"])) {
-  echo "0";
+  echo "-1";
   return;
 }
 
