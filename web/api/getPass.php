@@ -1,4 +1,7 @@
 <?php
+// Purpose: Returns the node password
+// Require: API key, Node ID
+
 include "../inc/postgresql.inc.php";
 
 $apiKey = "abcdefgHijkLMNOP";
