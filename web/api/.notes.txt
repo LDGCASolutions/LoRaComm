@@ -1,3 +1,3 @@
 Return codes:
--1 : Wrong API key
+-1 : Wrong API key, wrong value in parameters
  0  : No results found
